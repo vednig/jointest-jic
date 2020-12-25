@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="color-scheme" content="dark light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Test</title></head>
+<script>
+  /* ? Set Preferences */
+  function setval(key,val){
+if (typeof(Storage) !== "undefined") {
+  // Store
+  localStorage.setItem(key,val);
+  
+  
+} else {
+  console.log("Sorry, your browser does not support Web Storage...")
+  alert("Sorry, your browser does not support Web Storage...")
+}
+  }
+  //Retrive
+ function onload(){ if(localStorage.getItem("dark")!=null){
+    console.log(localStorage.getItem("dark"))
+    if (localStorage.getItem("dark")=='true'){
+      darkmodeon()
+      document.getElementsByClassName('switch')[0].click()
+    }else(
+      lightmodeon()
+    )
+  }else{
+    console.log('No Preferences Found')
+  }
+  if(localStorage.getItem("darkdefault")!='true'){
+    
+  if(localStorage.getItem("color")!=null){
+    console.log(localStorage.getItem("color"))
+    colorset(localStorage.getItem("color"))
+  }else{
+    console.log('No Preferences Found')
+  }}else{if(localStorage.getItem("whitedefault")!='true'){
+
+  }else{
+  if(localStorage.getItem("color")!=null){
+    console.log(localStorage.getItem("color"))
+    colorset(localStorage.getItem("color"))
+  }else{
+    console.log('No Preferences Found')
+  }}}
+}
+  /* UI JS */
+function hidem() {
+  document.getElementById("minfo").hidden="true";
+  document.getElementById("expand").removeAttribute("hidden")
+}
+function expandem() {
+  document.getElementById("minfo").removeAttribute("hidden");
+  document.getElementById("expand").hidden="true"
+}
+function darkmodeon(){
+  document.body.style.backgroundColor='#302F2B';
+  document.getElementById('game').className='container card card-body bg-dark';
+  setval('dark',true)
+  setval('darkdefault',true)
+}
+function lightmodeon(){
+  document.body.style.backgroundColor='white';
+  document.getElementById('game').className='container card card-body bg-light';
+  setval('dark',false)
+  setval('lightdefault',true)
+}
+function colorset(x){
+  document.getElementById('game').className='container card card-body bg-'+x;
+  setval('color',x)
+  setval('lightdefault',false)
+  setval('darkdefault',false)
+}
+</script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<style>
+  body{
+        margin:10px;
+  }
+    .form-control:focus {
+  border-color: #FF0000;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+    input.form-control {
+    width: auto;
+}
+#BarLine{
+    position:relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color:teal;
+        color:white;
+        margin:10px;
+  }
+.Endpage{
+    position:relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color:rgb(208, 255, 0);
+  }
+  .card{
+    border-radius: 30px;
+  }
+/*lasttime{
+  input[type="datet"]::before{
+   color: #ffffff;
+   content: attr(placeholder) ": ";
+}
+input[type="date"]:focus::before {
+   content: "" !important;
+}
+}*/
+</style>
+<body style="background-color: white;color:white" onload=onload()>
+<h1 class="text-success">JoIn Test<span class="badge badge-secondary">BETA</span><a href="/results">
+<div class="card bg-light text-dark" style="float: right;height:70px ;">
+  <div class="card-body" style="float: right;"><img style="width: 30px;" src="https://www.flaticon.com/svg/static/icons/svg/1251/1251824.svg"/></div></div></h1>
+</a>
+<div class="toggle">
+<!--- Dark Mode Toggle Starts-->
+<style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: yellow;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  .slider:after {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: black;
+    background-image:linear-gradient(orange,red);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: ;
+  }
+  
+  input:checked + .slider {
+    background-color: black;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px black;
+    
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  input:checked + .slider::after {
+    background-color: white;
+    background-image: linear-gradient(yellow,orange);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  .slider.round::after {
+    border-radius: 50%;
+  }
+  </style>
+  <script>
+  $(document).ready(function() {
+      //set initial state.
+      $('#textbox1').val($(this).is(':checked'));
+      
+      $('#checkbox1').change(function() {
+          if($(this).is(":checked")) {
+              darkmodeon()
+              returnVal=true;
+              $(this).attr("checked", returnVal);
+          }else{
+          lightmodeon()
+          }
+          $('#textbox1').val($(this).is(':checked'));        
+      });
+  });
+  </script>
+  
+  <label class="switch">
+    <input type="checkbox"id="checkbox1">
+    <span class="slider round"> <img width="20px" src="https://www.flaticon.com/svg/static/icons/svg/3226/3226413.svg"></span>
+  </label>
+</div>
+  <!--- Dark Mode Toggle Ends-->
+<hr color="red" style="color: brown;background-color: brown;background-image: none;background-attachment:fixed;">
+<div class="container coloroptions" style="max-width:150px">
+  <div class="row">
+  <a class="danger card bg-danger col-sm"style="width: 25px;" onclick="colorset('danger')">
+    <img width="20px"src="https://www.flaticon.com/svg/static/icons/svg/2457/2457492.svg">
+  </a>
+  <a class="success card bg-success col-sm" style="width: 25px;" onclick="colorset('success')"><img width="20px"src="https://www.flaticon.com/svg/static/icons/svg/2457/2457492.svg">
+  </a>
+  <a class="primary card bg-primary col-sm" style="width: 25px;" onclick="colorset('primary')">
+    <img width="20px"src="https://www.flaticon.com/svg/static/icons/svg/2457/2457492.svg">
+  </a>
+  <a class="secondary card bg-secondary col-sm" style="width: 25px;" onclick="colorset('secondary')">
+    <img width="20px"src="https://www.flaticon.com/svg/static/icons/svg/2457/2457492.svg">
+  </a>
+</div>
+</div>
+<div hidden id="boxcodes" style="background-color:lightseagreen;float:right;color:rgb(255, 231, 255);font-size: 1cm;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Your test will be live at: <span class="form-control form-control" id="testurl">xxxxxx</span></div>
+<div id="expand" style="align-items:center;align-self:center;align-content: center;min-width:100%;margin-left: 48%;"  hidden>
+  <button class="btn btn-outline-success" onclick="expandem()">
+    <img><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
+        </svg>
+    </img>
+  </button>
+  Enter Last Acceptable Date:
+  <input type="datetime-local" id="lasttime">
+</div>
+<div id="game" class="container card card-body">
+  <div class="row" id="minfo">
+<input type="number" name="Marks" id="" placeholder="Total Marks" class="form-control form-control">
+&nbsp;
+  &nbsp;<input type="text" name="School" id="1n" placeholder="Topic" class="form-control form-control">
+  
+  &nbsp;<input type="text" name="Class" id="1a" placeholder="Class" class="form-control form-control">
+  &nbsp;<input type="number" name="Time Limit" id="1b" placeholder="Time Limit(in minutes)" class="form-control form-control">
+  &nbsp;<input type="num" name="No. of Questions" id="1c" placeholder="No. of Questions" class="form-control form-control">
+<button onclick="add1('multi')" id="yo" class="btn btn-outline-warning" style="min-width: 50%;">Add Question</button>
+<button type="submit" style="color: blanchedalmond;float:left; min-width:50%;" onclick="dummy()"class="btn btn-outline-info">Done</button>
+<button type="menu" style="min-width: 100%;" class="btn btn-outline-dark" onclick="hidem()" id="menuinfo"><img><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" fill="grey" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1h-2z"/>
+  <path fill-rule="evenodd" fill="grey" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z"/>
+</svg></img></button>
+</div>
+<textarea id="instructions" placeholder="Type your test Instructions Here." class="form-control form-control"></textarea>
+  &nbsp;
+<div class="row" id="fooBar"></div>
+<div class="Endpage" id="Barline" style="min-height: 2cm;"><div id="AccountDetails" style="color:whitesmoke;"></div>End of Test Page </div>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+<script>
+  var uid=""
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyByQu3_pmxkcGhd6Ynq-TcrF0LcCnkHIw8",
+    authDomain: "jointest-jic.firebaseapp.com",
+    databaseURL: "https://jointest-jic.firebaseio.com",
+    projectId: "jointest-jic",
+    storageBucket: "jointest-jic.appspot.com",
+    messagingSenderId: "142037296584",
+    appId: "1:142037296584:web:f26548aaeb20b8a763ccfd",
+    measurementId: "G-QP01TYN2JC"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  firebase.auth().signInAnonymously().catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(errorCode,errorMessage)
+  // ...
+});
+var authid;
+var reqid;
+var userid;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var isAnonymous = user.isAnonymous;
+    authid = user.uid;
+    reqid = user.uid;
+    userid = user.uid;
+    document.getElementById("AccountDetails").innerHTML="You're assigned uid : "+authid+"which is Anonmous & "+ isAnonymous
+    // ...
+  } else {
+    // User is signed out.
+    // ...
+    document.getElementById("AccountDetails").st.color="black"
+    document.getElementById("AccountDetails").innerHTML="Please Refresh page! or Try again later"
+  }
+  // ...
+});
+  var database = firebase.database();
+  tcode=0
+  function writeUserData(uid,index,question,option1,option2,option3,option4,addon,tcode) {
+    //document.getElementById("boxcodes").removeAttribute('hidden')
+  firebase.database().ref('beta/' + 'uid/'+ uid+"/"+"simplesheet/"+tcode+"/"+"paper/"+index).set({
+    question:question,
+    option1:option1,
+    option2:option2,
+    option3:option3,
+    option4:option4,
+    addon:addon
+  });
+  firebase.database().ref('beta/'+'uid/'+uid+'/'+'simplesheet/'+tcode+"/"+"num").set({
+    count:num,
+    info:document.getElementById("1n").value,
+    time:document.getElementById("1b").value,
+    lastdate:document.getElementById("lasttime").value,
+    instructions: document.getElementById("instructions").value,
+    aclass: document.getElementsByName("Class")[0].value,
+    admin:authid
+  });
+  //document.getElementById("boxcodes").removeAttribute("hidden");
+
+}
+num = 0
+ind=0
+dope=0
+//Variables and All
+divn=1
+
+function dummy(x) {
+  for (let letter = 1; letter < divn; letter++) {
+    qname="Question"+letter;
+    oname1=letter+"."+"Option1";
+    oname2=letter+"."+"Option2";
+    oname3=letter+"."+"Option3";
+    oname4=letter+"."+"Option4";
+    aoname=letter+"."+"addon";
+    index=letter;
+    question=document.getElementById(qname).value;
+    option1=document.getElementById(oname1).value;
+    option2=document.getElementById(oname2).value;
+    option3=document.getElementById(oname3).value;
+    option4=document.getElementById(oname4).value;
+    addon=document.getElementById(aoname).value;
+  writeUserData(uid,index,question,option1,option2,option3,option4,addon,tcode)
+  };
+  //document.getElementById("boxcodes").removeAttribute("hidden");  
+  if(x!='x'){show()}
+}
+//Work done
+var setfor;
+
+    function add1(x){
+  dope=parseInt(dope)+parseInt(1);
+  divn=parseInt(divn)+parseInt(1);
+	var column=document.createElement("div");
+	column.setAttribute("id", dope);
+	column.setAttribute("class","col-sm");	
+	var col = document.getElementById("fooBar");
+  col.appendChild(column);
+  if (setfor!==true){
+    var db = firebase.firestore();
+  db.collection("users").add({
+    user: userid,
+    jituid: uid,
+    reqby: reqid,
+    admin: authid
+})
+.then(function(docRef) {
+    console.log(docRef.id);
+    setfor=true;
+})
+  }else{
+    //if not addede
+  }
+  add(x);
+  startref();
+}
+function startref(){
+  dummy('x');
+}
+    function add(x){
+        num=parseInt(num)+parseInt(1);
+        //Create an input type dynamically.
+        var element = document.createElement("input");
+        var labelname = "Question"+ num +"."
+        var addon = document.createElement("textarea");
+        var addonlname = "Addon"+" "+ "Description" +"."
+        var addonid=num+"."+ "addon"
+            //Create Labels
+        var label = document.createElement("label");
+        label.innerHTML = labelname;     
+        idname =  "Question"+ num
+	var divname = "Question "+ num
+        //Assign different attributes to the element.
+        element.setAttribute("type", "text");
+        element.setAttribute("placeholder", "Your Question Here");
+        element.setAttribute("name", "Question"+num);
+        element.setAttribute("style", "width:200px");
+        element.setAttribute("id", idname);
+	element.setAttribute("class", "input-group-text");
+	element.setAttribute("aria-describedby", "basic-addon1");
+	element.setAttribute("style","background-color:black;color:white");
+        label.setAttribute("style", "font-weight:normal;color:red");
+        addon.setAttribute("id",addonid)
+        addon.setAttribute("placeholder",addonlname)
+        addon.setAttribute("class","input-group-text")
+        addon.setAttribute("hidden","true")
+    // 'foobar' is the div id, where new fields are to be added
+    var foo = document.getElementById(dope);
+    //Append the element in page (in span).
+    foo.appendChild(label);
+    foo.appendChild(element);
+    foo.appendChild(addon);
+    if (x=="multi") {
+            for (let index = 1; index < 5; index++) {
+                var element = document.createElement("input");
+                var labelname = "Option"+ index +"."
+                //Create Labels
+                var label = document.createElement("Label");
+                label.innerHTML = labelname;     
+                idname =  num+"."+"Option"+ index
+                //Assign different attributes to the element.
+                element.setAttribute("type", "text");
+                element.setAttribute("placeholder", "Option here.");
+                element.setAttribute("name", divname);
+                element.setAttribute("style", "width:200px;");
+                element.setAttribute("id", idname);
+                label.setAttribute("style", "font-weight:normal;color:#149fc9;");
+		element.setAttribute("class","form-control form-control");
+
+                // 'foobar' is the div id, where new fields are to be added
+                var foo = document.getElementById(dope);
+                foo.appendChild(label);
+                foo.appendChild(element);
+            }
+        }
+    }
+    var jdata;
+         jdata={
+    "jsonrpc": "2.0",
+    "method": "generateStrings",
+    "params": {
+        "apiKey": "e8013a6b-9485-47a6-98c9-eb663bdaeff3",
+        "n": 1,
+        "length": 6,
+        "characters": "abcdefghijklmnopqrstuvwxyz",
+        "replacement": true
+    },
+    "id": 42
+};
+ // level is key and levelVal is value
+var xhttp = new XMLHttpRequest();
+xhttp.open("POST", "https://api.random.org/json-rpc/2/invoke", true);
+xhttp.setRequestHeader('Content-Type', 'application/json');
+xhttp.send(JSON.stringify(jdata));
+
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var obj=JSON.parse(this.responseText);
+      console.log("uid","is",obj['result']['random']['data'][0]);
+      uid=obj['result']['random']['data'][0];
+      document.getElementById("testurl").innerText="jointest.ml/"+uid;
+      ref=firebase.database().ref('beta/' + 'uid/'+ uid)
+      ref.once("value", function(snapshot) {
+        if (snapshot.exists()) {
+          console.log("exists!");
+          resend()          
+        } else{
+          return uid=obj['result']['random']['data'][0];
+         };
+      });
+      
+    }
+    
+}
+function resend() {
+  var xhttp = new XMLHttpRequest();
+xhttp.open("POST", "https://api.random.org/json-rpc/2/invoke", true);
+xhttp.setRequestHeader('Content-Type', 'application/json');
+xhttp.send(JSON.stringify(jdata));
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var obj=JSON.parse(this.responseText);
+      console.log("uid","is",obj['result']['random']['data'][0]);
+      uid=obj['result']['random']['data'][0];
+      ref=firebase.database().ref('beta/' + 'uid/'+ uid)
+      ref.once("value", function(snapshot) {
+        if (snapshot.exists()) {
+          console.log("exists!");
+          resend()          
+        } else{
+          return uid=obj['result']['random']['data'][0];
+         };
+      });
+      
+    }}
+}   
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js" integrity="sha512-RdSPYh1WA6BF0RhpisYJVYkOyTzK4HwofJ3Q7ivt/jkpW6Vc8AurL1R+4AUcvn9IwEKAPm/fk7qFZW3OuiUDeg==" crossorigin="anonymous"></script>
+<script>
+  const paramsn = new URLSearchParams(window.location.search);
+   cid = paramsn.get("id");
+   function show(){
+  bootbox.dialog({ 
+    title: 'Custom Dialog Example',
+    message: '<p style="color:black">Your Test is now available at: <br><div id="foo" style="color:violet"> https://jointest.ml/'+cid+'</div></p><button class="btn btn-primary" data-clipboard-target="#foo">Copy</button>',
+    size: 'large',
+    onEscape: true,
+    backdrop: true,
+    buttons: {
+        fee: {
+            label: 'Share',
+            className: 'btn-primary',
+            callback: function(){
+              //alert('LinkCopied'); 
+            }
+        },
+        fi: {
+            label: 'Go to Dashboard',
+            className: 'btn-warning',
+            callback: function(){
+             window.location='https://create.jointest.ml/'
+            }
+        },
+        fo: {
+            label: 'Change Answers',
+            className: 'btn-success',
+            callback: function(){
+              window.location='https://create.jointest.ml/solutions/?id='+uid
+            }
+        },
+        fum: {
+            label: 'See Results',
+            className: 'btn-danger',
+            callback: function(){
+             window.location='https://create.jointest.ml/results/?id='+uid
+            }
+          }
+        }
+    }
+)
+   }
+   var clipboard = new ClipboardJS('.btn');
+
+clipboard.on('success', function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
+    alert('Link Copied')
+    e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+    alert("Can't copy : error")
+});
+</script>
+
+<!-- Hotjar Tracking Code for jointest.ml -->
+<script>
+  (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:2039018,hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+</body>
+</html>

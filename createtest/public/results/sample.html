@@ -1,0 +1,72 @@
+
+<html>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+
+<script> 
+     var firebaseConfig = {
+    apiKey: "AIzaSyByQu3_pmxkcGhd6Ynq-TcrF0LcCnkHIw8",
+    authDomain: "jointest-jic.firebaseapp.com",
+    databaseURL: "https://jointest-jic.firebaseio.com",
+    projectId: "jointest-jic",
+    storageBucket: "jointest-jic.appspot.com",
+    messagingSenderId: "142037296584",
+    appId: "1:142037296584:web:f26548aaeb20b8a763ccfd",
+    measurementId: "G-QP01TYN2JC"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  firebase.auth().signInAnonymously().catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(errorCode,errorMessage)
+  // ...
+});
+var authid;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var isAnonymous = user.isAnonymous;
+    authid = user.uid;
+    console.log(authid)
+    // ...
+  } else {
+    // User is signed out.
+    // ...
+    document.getElementById("AccountDetails").st.color="black"
+    document.getElementById("AccountDetails").innerHTML="Please Refresh page! or Try again later"
+  }
+  // ...
+});
+    firebase.database().ref('beta/uid/athugc/simplesheet/0').once('value').then((snapshot) => {
+      var username = (snapshot.val() && snapshot.val().name) || 'Anonymous';
+      // ..
+      console.log(username)
+      console.log(snapshot.val())
+      document.getElementById('app').innerText=JSON.stringify(snapshot.val());
+      //x=snapshot.child('num').val()['admin']
+      //console.log(x)
+    /* The way to get child of anything which is unknown */
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val()['aclass'];
+      if(childData!=null){
+        console.log(childData)
+      }
+    });
+    });
+    </script>
+    <body>
+        <div id="app">
+            Content Will Come Here
+        </div>
+    </body>
+
+</html>

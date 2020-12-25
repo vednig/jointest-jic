@@ -1,0 +1,199 @@
+<html>
+    <head>
+        <title>Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+<style>
+    .glassmorphism{
+        background: rgba( 255, 255, 255, 0.25 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 8.0px );
+        -webkit-backdrop-filter: blur( 8.0px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+    body{
+        background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(153,103,186,1) 41.2%, rgba(0,113,227,1) 90% );
+        color:white;
+        margin:10px;
+        /*background-attachment:scroll;background-position: left*/
+        font: outline;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    h1{
+        margin:10px; 
+        animation: ease-out 1s ease-in 2s infinite;
+    }
+    .spot{
+        background-color: white;
+        border-radius: 10px;
+        max-width: 10px;
+        background-origin: padding-box;
+        box-sizing: content-box;
+        width: 10px;
+    }
+    .fire{      
+  animation-name: easer;
+  animation-duration: 1s;
+  min-width:10px;
+  max-width: 10px;
+  position: relative;
+  animation-name: easer;
+  animation-timing-function: ease-in;
+  transform: translateY(130%);
+}
+
+@keyframes easer {  
+from{left:0px; top:10px;opacity: 0;}
+ to{left:0px; top:0px;opacity: 1;visibility: hidden;}
+}
+.details{
+    color: rgb(31, 153, 153);
+    animation-name: easer;
+    animation-duration: 1s;
+    position: sticky;
+    animation-name: easer;
+    animation-timing-function: ease-in;
+    font-size: small;
+}
+a.redir:visited{
+    color: red;    
+    text-decoration: none;  
+    color: brown;
+    background-image: url("d:/downloads/angryimg.png");  
+    font-family: Arial;  
+
+}
+/*tabs{
+    background: rgba(70, 11, 11, 0.205);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.541);
+        backdrop-filter: blur( 8.0px );
+        -webkit-backdrop-filter: blur( 8.0px );
+        border-radius: 10px;
+        border: 1px solid rgba(66, 23, 23, 0.267);
+}*/
+</style>
+<body>
+<div class="glassmorphism" id="main">
+    <div class="content">
+        <h1 class="card">
+            <a class="spot">.</a>
+            <a class="fire">My Dashboard</a>
+        </h1>
+<div class="glassmorphism tabs" id="sample">
+    <h1 class="card" >
+        Create New Test<a href="//create.jointest.ml/create/" class="redir"><img width="20px" style="color: wheat;" src="/next.png"></a>
+        <table >
+            <tr class="spot"><td></td></tr>
+            <tr>
+                <td class="details">Test Details</td>
+            </tr>
+        </table>
+    </h1>
+</div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+     var firebaseConfig = {
+   apiKey: "AIzaSyByQu3_pmxkcGhd6Ynq-TcrF0LcCnkHIw8",
+   authDomain: "jointest-jic.firebaseapp.com",
+   databaseURL: "https://jointest-jic.firebaseio.com",
+   projectId: "jointest-jic",
+   storageBucket: "jointest-jic.appspot.com",
+   messagingSenderId: "142037296584",
+   appId: "1:142037296584:web:f26548aaeb20b8a763ccfd",
+   measurementId: "G-QP01TYN2JC"
+ };
+ // Initialize Firebase
+ firebase.initializeApp(firebaseConfig);
+ var dbase = firebase.firestore();
+
+ firebase.auth().signInAnonymously().catch(function(error) {
+ // Handle Errors here.
+ var errorCode = error.code;
+ var errorMessage = error.message;
+ //console.log(errorCode,errorMessage)
+ // ...
+});
+var authid;
+firebase.auth().onAuthStateChanged(function(user) {
+ if (user) {
+   // User is signed in.
+   var isAnonymous = user.isAnonymous;
+   authid = user.uid;
+   //console.log(authid)
+   // ...
+ } else {
+   // User is signed out.
+   // ...
+
+ }
+ // ...
+ 
+});
+</script>
+<script>
+    title=[]
+    list=[]
+    var dict = {};
+    var n=0
+    var k=0
+    //get the list
+    dbase.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+          if (doc.data().admin===authid){console.log('Access Allowed',doc.data().jituid)
+          console.log(authid,doc.data().admin);
+            firebase.database().ref('beta/uid/'+doc.data().jituid+'/simplesheet/0').once('value').then((snapshot) => {
+            var username = (snapshot.val() && snapshot.val().name) || 'Anonymous';
+            // ..
+            //console.log(username)
+            //console.log(snapshot.val())
+            //document.getElementById('app').innerText=JSON.stringify(snapshot.val());
+            //x=snapshot.child('num').val()['admin']
+            //console.log(x)
+            /* The way to get child of anything which is unknown */
+            snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val()['info'];
+            if(childData!=null){
+                n++
+                k++
+                console.log(childData)
+                dict[doc.data().jituid]=childData
+                title.push(childData)
+                cuid=doc.data().jituid
+                document.getElementById('main').innerHTML+='<div class="glassmorphism tabs" id="'+k+'" onclick="edit(event)"><h1 class="card" id='+n+' >'+dict[cuid]+'<a href="//create.jointest.ml/results/?id='+doc.data().jituid+'" class="redir"><img width="20px" style="color: wheat;" src="/next.png"></a><table ><tr class="spot"><td></td></tr><tr><td id='+n+' class="details">'+doc.data().jituid+'</td></tr></table></h1></div>'
+
+                    }
+                });
+            });
+          //add accessible tests
+        list.push(doc.data().jituid)
+        }
+    });
+});
+function edit(e){
+    window.location='https://create.jointest.ml/results/?id='+list[e.target.id-1];
+}
+</script>
+
+<!-- Hotjar Tracking Code for jointest.ml -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2039018,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+</body>
+</html>

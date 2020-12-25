@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "jointest",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

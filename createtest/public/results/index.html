@@ -1,0 +1,156 @@
+<html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        
+        <style>
+            #cover{
+                color: rgb(189, 78, 204);
+                border-radius: 25px;
+            }
+            #cover_story{
+                color: rgb(189, 78, 204);
+                border-radius: 25px;
+            }
+            #viewpad{
+                color: rgb(189, 78, 204);
+                border-radius: 25px;
+            }
+            .heart{color:#e25555;}
+            .saffron{
+                color: #ff9933;
+            }
+            .blue{
+                color:rgb(43, 129, 204);
+            }
+            .green{
+                color: rgb(35, 212, 35);
+            }
+            .bg-white{
+                float: right;
+            }
+            strong{
+                border-radius: 5%;
+            }
+            #id{
+                height: 100px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <!--script src="io.js"></script--->
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <script src="content.js">
+        </script>
+        <title>
+            Educator's Dashboard
+        </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    </head>
+    <body style="background-color: blueviolet;background-image: linear-gradient(rgb(90, 37, 90),pink);margin-top:20px;" >
+        <div class="container">
+        <div class="card-deck align"> 
+        <table>
+          <tr>
+              <td>
+        <div class="card bg-light text-dark " id="cover" >
+            <div class="card-body">
+           <h1 id="title"></h1>
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    No. of Responses: 
+                </td>
+                <td id="respamnt">
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   Total Marks 
+                </td>
+                <td id="totalmarks"></td>
+                <tr>
+                    <td>Responder's Name:<td></td>
+                    <td id="namelst">
+                        </td>
+                    </td>
+                </tr>
+            </tr>
+            <tr class='row'></tr>
+        </table><div> 
+            </div>
+        <h1 id="classanalysis" style="color: rgb(236, 182, 112);">Class Analysis
+        </h1>
+        <p class="text-secondary">On Basis of Marks</p>
+        <canvas id="public"></canvas>
+    </div></div></td>
+    <td></td></tr></table>
+    <table style="width:50%;" hidden id="contentcard">
+        <tr>
+            <td>
+      <div class="card bg-light text-dark" id="viewpad" >
+          <div class="card-body">
+         <h1 id="analysis">Name Of Responder</h1>
+     <div> 
+          </div>
+      <h1 id="studentanalysis" style="color: rgb(236, 182, 112);">Student Analysis
+      </h1>
+      <p class="text-secondary">Based on Questions</p>
+      <section></section><canvas id="personalchart" height="200px"></canvas>
+      <div id="totalscore"></div>
+  </div></div></td></tr><tr><td>E-Mail ID:<div id="email"></div><button onclick="theFunction(event)" class="btn btn-primary w-100" id="sndreport" style="width:100px">Release<a id="uname"></a> 's Report</button></td></tr></table></div></div>
+  &#9; &#9; &#9; &#9; &#9; &Tab;
+  <div class="container"><button class="btn btn-outline-secondary " onclick="go(event)" id='a'><img width='30px' src='https://img.icons8.com/color/72/paper.png'>Alter Answers</button>
+<button class="btn btn-outline-secondary" onclick="go(event)" id='q'><img width='30px' src='https://img.icons8.com/color/72/cut-paper.png'>Alter Questions</button>
+</div><script src="charts.js">
+</script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first --> <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <!--script src="/__/firebase/8.1.2/firebase-app.js"></script-->
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <!--script src="/__/firebase/8.1.2/firebase-analytics.js"></script-->
+  <!-- Add Firebase products that you want to use -->
+    <!--script src="/__/firebase/8.1.2/firebase-auth.js"></script>
+    <script src="/__/firebase/8.1.2/firebase-firestore.js"></script>
+    <script src="/__/firebase/8.1.2/firebase-database.js"></script--->
+<!--Only For Development Purposes-->
+<!--script src="https://www.gstatic.com/firebasejs/8.1.2/firebase.js"></script--->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+<script src="script.js">
+ </script>
+ <script>
+     function go(e){
+         if(e.target.id=='a'){
+            window.location='https://create.jointest.ml/solutions/?id='+code1
+         }
+         if(e.target.id=='q'){
+            window.location='https://create.jointest.ml/alter/?id='+code1
+         }
+     }
+ </script>
+ 
+<!-- Hotjar Tracking Code for jointest.ml -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2039018,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+</body>
+</html>
