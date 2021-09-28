@@ -78,6 +78,13 @@
                 }
         function calcall(rlnum,namen){
             scrn=0;
+            if (snap.solution.page1){
+            }
+            else{
+                document.getElementById('alert').removeAttribute('hidden')
+                document.getElementById('alert').innerText=`Error : Can't find correct solution/answers for this Test. Please Mark Answers by clicking "Alter Answers".`
+                return;
+            }
             for (k = 0; k < snap.num.count*2; k+=2) {
                             //console.log("public",k)
                             if (snap.answers[rlnum].response[k]==snap.solution.page1[k]){
@@ -103,9 +110,10 @@
             dataset1=personalChart.data.datasets[0].data
             dataset2=publicChart.data.datasets[0].data
             soln=snap.solution.page1;
+            uid=rlnum
             htmltoencode='<html>'+'<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">'+'<body>'+document.getElementById('viewpad').innerHTML+'<div id="public"></div><script>function run(){var ctx = document.getElementById("personalchart");publicChart='+chart1+';publicChart.data.labels='+label1+';publicChart.data.datasets[0].data=['+dataset1+'];publicChart.update();};run() '
             base64=window.btoa(label1)
-            uri='http://vednig.heliohost.us?l='+encodeURI(base64)+'&d='+encodeURI(window.btoa(dataset1))+'&pl='+encodeURI(window.btoa(label2))+'&pd='+encodeURI(window.btoa(dataset2))+'&n='+encodeURI(window.btoa(document.getElementById('analysis').innerText))+'&t='+encodeURI(window.btoa(document.getElementById('totalmarks').innerText))+'&s='+encodeURI(window.btoa(soln));
+            uri='https://report.jointest.ml?l='+encodeURI(base64)+'&d='+encodeURI(window.btoa(dataset1))+'&pl='+encodeURI(window.btoa(label2))+'&pd='+encodeURI(window.btoa(dataset2))+'&n='+encodeURI(window.btoa(document.getElementById('analysis').innerText))+'&t='+encodeURI(window.btoa(document.getElementById('totalmarks').innerText))+'&s='+encodeURI(window.btoa(soln))+'&uid='+encodeURI(window.btoa(uid));
             const encoded = uri;
             console.log(encoded);
             //newlink='data:text/html;base64,'+base64

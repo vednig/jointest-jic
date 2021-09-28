@@ -22,6 +22,7 @@ function themedark() {
     document.body.style.backgroundImage='linear-gradient(black,DarkViolet)'
     document.getElementById("boxtheme").style.color='azure'
     document.getElementsByClassName('ht')[0].style.backgroundImage="linear-gradient(145deg, #1d1325, brown)"
+    window.localStorage.setItem('Theme','Dark')
 }
 function themelight(params) {
     document.body.style.backgroundColor="white"
@@ -30,6 +31,7 @@ function themelight(params) {
     document.body.style.backgroundImage='linear-gradient(#FF99FF,#FFFFFF)'
     document.getElementById("boxtheme").style.color="#800040"
     document.getElementsByClassName('ht')[0].style.backgroundImage="linear-gradient(145deg, #e6e6e6, #ffffff)"
+    window.localStorage.setItem('Theme','Light')
 }
 function themepink() {
     document.body.style.backgroundColor="blueviolet"
@@ -38,6 +40,7 @@ function themepink() {
     document.body.style.backgroundImage='linear-gradient(blueviolet,violet)'
     document.getElementById("boxtheme").style.color="white"
     document.getElementsByClassName('ht')[0].style.backgroundImage="linear-gradient(145deg, #e6e6e6, #ffffff)"
+    window.localStorage.setItem('Theme','Pink')
 }
 var link="//jointest.ml"+window.location.pathname
  function refresh() {
@@ -105,6 +108,7 @@ var link="//jointest.ml"+window.location.pathname
         </div>
         <div class="ht"style="text-align: center;border-radius: 15px 50px;padding: 20px;background: linear-gradient(145deg, #e6e6e6, #ffffff);box-shadow:  5px 5px 10px #a59ca9,-5px -5px 10px #ffffff;width:350px;background-color:AZURE;align-self: centre;align-items: center;align-content: left;text-align: left;">
         <hr class="k">
+            <div id='Alert' hidden class="alert alert-danger text-danger"></div>
             <div class="btn btn-outline-danger" style="align-items: center;align-self: center;text-align: center;align-content: center;width: 100%;"><b style="color:rgba(255, 71, 157, 0.705);font-size: 30px;font-style: italic;">Instructions</b></div>
             <div id="instructions" class="content"> </div><br>
             <div id="content" class="row">            
@@ -128,14 +132,18 @@ var link="//jointest.ml"+window.location.pathname
 <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
 <script>
-function runit() {
-    
-    var d = new Date();
-var n = d.getTime();
-function start(){
+var starttime=start();
+function start(){    
+    date = new Date()
+    n = date.getTime()
     starttime=n;
     return starttime;
     };
+function runit() {
+    
+var d = new Date();
+var n = d.getTime();
+
 pathname=code1;
         
 var firebaseConfig = {
@@ -259,10 +267,11 @@ var x = setInterval(function() {
 }, function(error) {
    console.log("Error: " + error.code);
    document.getElementById("value").innerHTML+="Can't Load It Now!Test seems to have encoutered an error.<BR>PLEASE SEND EMAIL ABOUT THIS TO:support@jointest.ml";
-});
+});}
 const responsen=[];
 date = new Date()
 n= date.getTime()
+/*
 function submit() {
     if (document.getElementById('name').value==''){return}
     if(document.getElementById('numbern').value==''){return}
@@ -299,7 +308,7 @@ function submit() {
     var myphoneno=document.getElementById('Phone Number').value;
     var myemail=document.body.getElementById('email').value;	
     var timeStamp = Math.floor(Date.now());
-    firebase.database().ref('beta/' + 'uid/'+ code1 +"/"+"simplesheet/"+"0/"+"answers/"+timestamp+'&&'+uid+"/").set({
+    firebase.database().ref('beta/' + 'uid/'+ code1 +"/"+"simplesheet/"+"0/"+"answers/"+timestamp+'&&'+uid+"").set({
     response:responsen.toString(),
     endtime:n,
     name:myname,
@@ -310,11 +319,30 @@ function submit() {
      console.log("responsen")
 }
 }
+*/
 
-const responsen=[];
 date = new Date()
 n= date.getTime()
+var oneSubmissionEnabled;
 function submit() {
+            
+                
+
+        var code1=window.location.pathname;
+        var ref = firebase.database().ref("/beta/uid/"+code1+"/simplesheet/0/");
+            ref.once("value", function(snapshot) {
+                if (snapshot.exists()){
+                var oneSubmissionEnabled=snapshot.val().pref.oneSubmission;
+                if (oneSubmissionEnabled){
+                    var rollList =snapshot.val().pref.submissionList;    
+                    if(rollList.includes(document.getElementById('email').value)){
+                        //Means Student With This Email has already given test.
+                        document.getElementById('Alert').removeAttribute('hidden')
+                        document.getElementById('Alert').innerText="A response from "+document.getElementById('email').value+" has already been accepted."
+                        return;
+                    }
+    };
+    }});
     if (document.getElementById('name').value==''){return}
     if(document.getElementById('numbern').value==''){return}
     if(document.getElementById('email').value==''){return}
@@ -359,14 +387,16 @@ window.uid=document.getElementById('numbern').value;
     var myemail=window.myemail;
     console.log("responsen",uid,myname)	
     var timeStamp = Math.floor(Date.now());
-    firebase.database().ref('beta/' + 'uid/'+ code1 +"/"+"simplesheet/"+"0/"+"answers/"+timestamp+'&&'+uid+"/").set({
+    firebase.database().ref('beta/' + 'uid/'+ code1 +"/"+"simplesheet/"+"0/"+"answers/"+timeStamp+'&&'+uid+"").set({
     response:responsen.toString(),
+    start:starttime,
     endtime:n,
     name:myname,
     email:myemail,
     phoneno:myphoneno,
-    uid:timestamp+'&&'+uid
+    uid:timeStamp+'&&'+uid
      })
+     console.log('Response Submitted !')
         }
     drop()
 }
@@ -389,6 +419,12 @@ document.addEventListener('DOMContentLoaded', getValue(), false);
 $( document ).ready(function() {
         console.log( "document loaded" );
     });
+if (window.localStorage.getItem('Theme')=='Dark'){
+    themedark()
+}
+if(window.localStorage.getItem('Theme')=='Pink'){
+    themepink()
+}
 </script>
 <!-- Hotjar Tracking Code for jointest.ml -->
 <script>

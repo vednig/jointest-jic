@@ -63,7 +63,7 @@
                     No. of Responses: 
                 </td>
                 <td id="respamnt">
-                    
+                    0
                 </td>
             </tr>
             <tr>
@@ -100,10 +100,12 @@
       <p class="text-secondary">Based on Questions</p>
       <section></section><canvas id="personalchart" height="200px"></canvas>
       <div id="totalscore"></div>
+      <div id="alert" hidden class="alert alert-danger text-danger"></div>
   </div></div></td></tr><tr><td>E-Mail ID:<div id="email"></div><button onclick="theFunction(event)" class="btn btn-primary w-100" id="sndreport" style="width:100px">Release<a id="uname"></a> 's Report</button></td></tr></table></div></div>
   &#9; &#9; &#9; &#9; &#9; &Tab;
-  <div class="container"><button class="btn btn-outline-secondary " onclick="go(event)" id='a'><img width='30px' src='https://img.icons8.com/color/72/paper.png'>Alter Answers</button>
+  <div class="container"><button class="btn btn-outline-secondary" onclick="go(event)" id='d'><img width='30px' src="https://img.icons8.com/ios-filled/50/000000/back.png"/>Go To Dashboard</button><button class="btn btn-outline-secondary " onclick="go(event)" id='a'><img width='30px' src='https://img.icons8.com/color/72/paper.png'>Alter Answers</button>
 <button class="btn btn-outline-secondary" onclick="go(event)" id='q'><img width='30px' src='https://img.icons8.com/color/72/cut-paper.png'>Alter Questions</button>
+</div>
 </div><script src="charts.js">
 </script>
 
@@ -137,6 +139,9 @@
          }
          if(e.target.id=='q'){
             window.location='https://create.jointest.ml/alter/?id='+code1
+         }
+          if(e.target.id=='d'){
+            window.location='https://create.jointest.ml/'
          }
      }
  </script>
